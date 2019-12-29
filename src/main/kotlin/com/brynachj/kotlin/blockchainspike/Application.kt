@@ -1,5 +1,6 @@
 package com.brynachj.kotlin.blockchainspike
 
+import com.brynachj.kotlin.blockchainspike.domain.Block
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import java.math.BigInteger

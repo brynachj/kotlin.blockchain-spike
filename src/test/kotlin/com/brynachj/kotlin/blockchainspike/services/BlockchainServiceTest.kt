@@ -1,7 +1,7 @@
 package com.brynachj.kotlin.blockchainspike.services
 
-import org.junit.Test
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 
 class BlockchainServiceTest {
 

@@ -1,5 +1,6 @@
-package com.brynachj.kotlin.blockchainspike
+package com.brynachj.kotlin.blockchainspike.domain
 
+import com.brynachj.kotlin.blockchainspike.hash
 import java.time.Instant
 
 data class Block(val previousHash: String,
