@@ -13,7 +13,7 @@ data class Block(val previousHash: String,
         hash = calculateHash()
     }
 
-    private fun calculateHash(): String {
+    fun calculateHash(): String {
         return "$previousHash$data$timestamp$nonce".hash()
     }
 
