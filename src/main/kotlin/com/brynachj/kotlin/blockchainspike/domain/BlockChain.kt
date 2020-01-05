@@ -1,12 +1,12 @@
 package com.brynachj.kotlin.blockchainspike.domain
 
-class BlockChain {
+class BlockChain (val difficulty: Int = 5){
 
-
-    private val difficulty = 5
     private val validPrefix = "0".repeat(difficulty)
 
-    private var blocks: MutableList<Block> = mutableListOf()
+    var blocks: MutableList<Block> = mutableListOf()
+
+    var UTXO: MutableMap<String, TransactionOutput> = mutableMapOf()
 
     fun add(block: Block) : Block {
         val minedBlock = if (isMined(block)) block else mine(block)
@@ -24,10 +24,11 @@ class BlockChain {
         var minedBlock = block.copy()
 
         while(!isMined(minedBlock)) {
-            minedBlock.copy(nonce = minedBlock.nonce + 1)
+            minedBlock = minedBlock.copy(nonce = minedBlock.nonce + 1)
         }
 
-        println("Mined: $block")
+        println("Mined: $minedBlock")
+        updateUTXO(minedBlock)
 
         return minedBlock
     }
@@ -51,5 +52,15 @@ class BlockChain {
             }
         }
     }
+    override fun toString(): String {
 
+        val blockchainString = blocks.joinToString { it.calculateHash() }
+
+        return blockchainString
+    }
+
+    private fun updateUTXO(block: Block) {
+        block.transactions.flatMap { it.inputs }.map { it.hash }.forEach { UTXO.remove(it) }
+        UTXO.putAll(block.transactions.flatMap { it.outputs }.associateBy { it.hash })
+    }
 }
