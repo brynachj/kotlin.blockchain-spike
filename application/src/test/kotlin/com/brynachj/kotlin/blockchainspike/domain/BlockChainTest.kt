@@ -39,9 +39,9 @@ class BlockChainTest {
     }
 
     private fun populateBlockChain(blockchain: BlockChain) {
-        val genesisBlock = Block(previousHash = "0", data = "I'm the first", recalcHash = false)
-        val secondBlock = Block(genesisBlock.hash, data = "I'm the second", recalcHash = false)
-        val thirdBlock = Block(secondBlock.hash, data = "I'm the third", recalcHash = false)
+        val genesisBlock = Block(previousHash = "0", data = "I'm the first", hash="000000123", recalcHash = false)
+        val secondBlock = Block(genesisBlock.hash, data = "I'm the second", recalcHash = true)
+        val thirdBlock = Block(secondBlock.hash, data = "I'm the third", recalcHash = true)
 
         blockchain.add(genesisBlock)
         blockchain.add(secondBlock)
