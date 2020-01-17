@@ -1,21 +1,25 @@
 package com.brynachj.kotlin.blockchainspike
 
+import io.restassured.RestAssured
+import io.restassured.RestAssured.given
+import io.restassured.parsing.Parser
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
+import org.springframework.test.context.junit4.SpringRunner
 
-@RunWith(JUnit4::class)
+@RunWith(SpringRunner::class)
 class ApplicationTests {
 
     @Test
     fun basicTest() {
-//        val cities: List<String> = given()
-//                .queryParam("deleted", false)
-//                .`when`().get("/users")
-//                .then().statusCode(200)
-//                .body("size()", `is`(3)).body("name.any { it == 'Ervin Howell' }", `is`(true))
-//                .body("find { user -&gt; user.username == 'Antonette' }.company.name",
-//                        equalTo("Romaguera-Jacobson")).extract().path("address.city")
+
+        RestAssured.registerParser("text/plain", Parser.JSON)
+
+        val body = given().get("/blockchain")
+                .getBody().asString()
+
+        assertThat(body).isEqualTo("[]")
     }
 
 }
