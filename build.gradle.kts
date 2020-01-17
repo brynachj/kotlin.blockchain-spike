@@ -20,18 +20,53 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	testImplementation("io.rest-assured:rest-assured:3.3.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.assertj:assertj-core:3.14.0")
 
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
+subprojects {
+	apply {
+		plugin("org.jetbrains.kotlin.jvm")
+	}
+
+	group = "project"
+	version = "0.0.1-SNAPSHOT"
+
+	repositories {
+		mavenCentral()
+	}
+
+	val implementation by configurations
+
+	dependencies {
+		implementation(kotlin("stdlib-jdk8"))
+	}
+
+	tasks.withType<KotlinCompile> {
+		kotlinOptions.jvmTarget = "1.8"
+	}
+
+	tasks.withType<Test> {
+		useJUnitPlatform()
+	}
+
+	tasks.withType<KotlinCompile> {
+		kotlinOptions {
+			freeCompilerArgs = listOf("-Xjsr305=strict")
+			jvmTarget = "1.8"
+		}
 }
 
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "1.8"
-	}
+//dependencies {
+//    testImplementation("org.springframework.boot:spring-boot-starter-test")
+//    testImplementation("junit:junit:4.12")
+//    testImplementation("commons-logging:commons-logging")
+//    testImplementation("org.hamcrest:hamcrest")
+////    testImplementation("com.google.guava:guava")
+//    testImplementation("io.rest-assured:rest-assured:3.3.0")
+////    testImplementation("org.codehaus.groovy:groovy-all")
+//    testImplementation("org.assertj:assertj-core")
+//}
 }
