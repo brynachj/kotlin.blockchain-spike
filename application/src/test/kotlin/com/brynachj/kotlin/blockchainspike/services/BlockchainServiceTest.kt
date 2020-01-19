@@ -15,16 +15,16 @@ class BlockchainServiceTest {
     @Test
     fun addBlock() {
         var blockchainService = BlockchainService()
-        val block = Block(previousHash = "1234", data = "Welcome to big school", hash="00000000000000023654", recalcHash = true)
+        val block = Block(previousHash = "1234", data = "Welcome to big school", hash="00000000000000023654", recalcHash = false)
         assertThat(blockchainService.addBlock(block)).isEqualTo(block.hash)
     }
 
     @Test
     fun getNonEmptyBlockchain() {
         var blockchainService = BlockchainService()
-        val block = Block(previousHash = "1234", data = "Welcome to big school", hash="00000000000000023654", recalcHash = true)
+        val block = Block(previousHash = "1234", data = "Welcome to big school", hash="00000000000000023654", recalcHash = false)
         blockchainService.addBlock(block)
 
-        assertThat(blockchainService.getBlockchain()).contains("Block(previousHash=1234, data=Welcome to big school", "nonce=0, hash=00000000000000023654)")
+        assertThat(blockchainService.getBlockchain()).contains("Block(previousHash=1234, data=Welcome to big school", "nonce=0")
     }
 }
